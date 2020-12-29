@@ -9,7 +9,16 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * Class User
+ * @package App\Models
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property Carbon $created_at
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -17,6 +26,9 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
+
+    protected $with = ["roles", "permissions"];
 
     /**
      * The attributes that are mass assignable.
